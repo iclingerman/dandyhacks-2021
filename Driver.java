@@ -3,29 +3,17 @@ import java.net.*;
 
 public class Driver {
     public static void main(String[] args) throws UnknownHostException {
-        // InetAddress ip = InetAddress.getByName("127.0.0.1");
-        Socket sock;
         String ip = "";
         int port = 0;
-        boolean isServer = false;
+        String name = args[1];
         if (args[0].equals("server")) {
-            isServer = true;
-            ip = "127.0.0.1";
-            port = Integer.parseInt(args[1]);
+            port = Integer.parseInt(args[2]);
+            Server s = new Server(port, name);
         } else {
-            String[] temp = args[1].split(":");
+            String[] temp = args[2].split(":");
             ip = temp[0];
             port = Integer.parseInt(temp[1]);
+            Client c = new Client(ip, port, name);
         }
-
-        System.out.printf("ip: %s, port: %d\n", ip, port);
-
-        try {
-            sock = new Socket(ip, port);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
     }
 }

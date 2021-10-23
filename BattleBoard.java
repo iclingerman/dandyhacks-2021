@@ -16,7 +16,7 @@ public class BattleBoard {
             for (int column = 0; column<8; column++){
                 board[row][column] = 0;
             }
-            System.out.println();
+            // System.out.println();
         }
     }
 
