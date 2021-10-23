@@ -53,32 +53,32 @@ public class BattleBoard {
     }
 
     public int[] stringToCoord(String coord){
-        int[] returnCoord = new int[2];
-        returnCoord[0] = Integer.parseInt(coord.substring(0,1)) - 1;
-        switch (coord.charAt(1)) {
+        int[] returnCoord = new int[]{-1, -1};
+        returnCoord[1] = Integer.parseInt(coord.substring(1)) - 1;
+        switch (coord.charAt(0)) {
             case 'a':
-                returnCoord[1] = 0;
+                returnCoord[0] = 0;
                 break;
             case 'b':
-                returnCoord[1] = 1;
+                returnCoord[0] = 1;
                 break;
             case 'c':
-                returnCoord[1] = 2;
+                returnCoord[0] = 2;
                 break;
             case 'd':
-                returnCoord[1] = 3;
+                returnCoord[0] = 3;
                 break;
             case 'e':
-                returnCoord[1] = 4;
+                returnCoord[0] = 4;
                 break;
             case 'f':
-                returnCoord[1] = 5;
+                returnCoord[0] = 5;
                 break;
             case 'g':
-                returnCoord[1] = 6;
+                returnCoord[0] = 6;
                 break;
             case 'h':
-                returnCoord[1] = 7;
+                returnCoord[0] = 7;
                 break;
             default:
                 System.out.println("Error");
