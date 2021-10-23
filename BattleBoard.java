@@ -16,7 +16,6 @@ public class BattleBoard {
             for (int column = 0; column<8; column++){
                 board[row][column] = 0;
             }
-            // System.out.println();
         }
     }
 
@@ -50,6 +49,10 @@ public class BattleBoard {
 
     public int getValue(int row, int column){
         return board[row][column];
+    }
+
+    public void setValue(int row, int column, int value){
+        board[row][column] = value;
     }
 
     public int[] stringToCoord(String coord){
