@@ -8,12 +8,14 @@ public class BattleBoard {
     public ArrayList<ArrayList<Integer>> ships;
     public String hits;
     public String miss;
+    public int remainingShips;
 
     public BattleBoard(){
         this.board = new int[8][8];
         this.ships = new ArrayList<ArrayList<Integer>>();
         this.hits = "";
         this.miss = "";
+        this.remainingShips = 5;
         fillBoard();
     }
 
@@ -410,12 +412,12 @@ public class BattleBoard {
                     System.out.println(i+1);
                     if (getValue(shipGone.get(i),shipGone.get(i+1))!=2){
                         // System.out.println(shipGone);
-                        ships.remove(shipGone);
                         allGone=false;
                         break;
                     }
                 }
                 if (allGone){
+                    remainingShips--;
                     for (int i=0; i<shipGone.size(); i=i+2){
                         setAround(shipGone.get(i), shipGone.get(i+1), 3);
                     }

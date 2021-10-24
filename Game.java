@@ -40,8 +40,8 @@ public class Game {
         System.out.println("hits " + board.hits);
     }
 
-    public boolean gameOver(BattleBoard board){
-        if (board.ships.isEmpty()){
+    public boolean gameOver(){
+        if (board.remainingShips == 0){
             return true;
         }
         return false;

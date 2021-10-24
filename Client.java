@@ -21,7 +21,7 @@ public class Client extends Player{
         }
 
 
-        for (int i = 0; i < 5; i++) {
+        while (!isOver) {
             if(myTurn) {
                 sendMove();
                 game.board.printBothBoards(game.oppBoard);
@@ -29,6 +29,12 @@ public class Client extends Player{
                 receiveMove();
                 game.board.printBothBoards(game.oppBoard);
             }
+        }
+
+        if (this.winner) {
+            System.out.println("Congrats! You Win!");
+        } else {
+            System.out.println(this.oppName + " Wins. Better luck next time");
         }
 
         closeConnection();

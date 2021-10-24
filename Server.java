@@ -24,7 +24,7 @@ public class Server extends Player{
         }
 
         
-        for (int i = 0; i < 5; i++) {
+        while (!isOver) {
             if(myTurn) {
                 sendMove();
                 game.board.printBothBoards(game.oppBoard);
@@ -33,6 +33,14 @@ public class Server extends Player{
                 game.board.printBothBoards(game.oppBoard);
             }
         }
+
+
+        if (this.winner) {
+            System.out.println("Congrats! You Win!");
+        } else {
+            System.out.println(this.oppName + " Wins. Better luck next time");
+        }
+
 
         try {
             server.close();

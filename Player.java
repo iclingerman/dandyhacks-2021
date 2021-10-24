@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.Scanner;
 import java.net.*;
 import java.io.*;
@@ -10,7 +11,11 @@ public class Player {
     protected DataInputStream in; 
     protected DataOutputStream out;
 
+    protected boolean isOver;
+    protected boolean winner;
     protected boolean myTurn;
+
+    protected HashSet<String> previousMoves;
 
     private Scanner scan;
 
@@ -20,6 +25,11 @@ public class Player {
         this.myTurn = myTurn;
         this.scan = new Scanner(System.in);
         this.game = new Game();
+        this.isOver = false;
+        this.winner = false;
+        this.previousMoves = new HashSet<String>();
+
+
         this.socket = null;
         this.in = null;
         this.out = null;
@@ -56,10 +66,13 @@ public class Player {
             String[] response = processOpponentMove(message);
             if (response[0].contains("Miss")) {
                 myTurn = true;
+            } else if (response[3].equals("Over")) {
+                isOver = true;
             }
             out.writeUTF(response[0]);
             out.writeUTF(response[1]);
             out.writeUTF(response[2]);
+            out.writeUTF(response[3]);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,9 +87,14 @@ public class Player {
             String response = in.readUTF();
             String hits = in.readUTF();
             String miss = in.readUTF();
+            String over = in.readUTF();
             System.out.println("Your move was a " + response);
             if(!response.contains("Hit")) {
                 myTurn = false;
+            }
+            if (over.equals("Over")) {
+                isOver = true;
+                winner = true;
             }
             processPlayerMove(move, response, hits, miss);
         } catch (IOException e) {
@@ -95,12 +113,16 @@ public class Player {
             System.out.print("Please enter your move: ");
             move = scan.nextLine();
             System.out.println();  
-        } while (!validMove(move));       
+        } while (!validMove(move));   
+        previousMoves.add(move);    
         return move;
     }
 
     public boolean validMove(String move) {
         if(move.equals("")) {
+            return false;
+        }
+        if (previousMoves.contains(move)) {
             return false;
         }
         int[] check = game.oppBoard.stringToCoord(move);
@@ -112,12 +134,17 @@ public class Player {
 
     //return 'hit' or 'miss'
     public String[] processOpponentMove(String move) {
-        String[] rval = new String[3];
+        String[] rval = new String[4];
         int[] coords = game.board.stringToCoord(move);
         int[] temp = new int[2];
         temp[0] = coords[1];
         temp[1] = coords[0];
         int option = game.board.updateBoard(temp);
+        if(game.gameOver()) {
+            rval[3] = "Over";
+        } else {
+            rval[3] = "";
+        }
         switch(option) {
             case 0:
                 rval[0] = "Miss";
