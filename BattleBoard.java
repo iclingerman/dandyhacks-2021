@@ -6,9 +6,13 @@ import java.util.*;
 public class BattleBoard {
     private int[][] board;
     private ArrayList<ArrayList<Integer>> ships = new ArrayList<ArrayList<Integer>>();
+    public String hits;
+    public String miss;
 
     public BattleBoard(){
         this.board = new int[8][8];
+        this.hits = "";
+        this.miss = "";
         fillBoard();
     }
 
@@ -171,6 +175,8 @@ public class BattleBoard {
         if (coords[0] == -1 || coords[1] == -1){
             return false;
         }
+        System.out.println("row = " + coords[0]);
+        System.out.println("column = " + coords[1]);
         if (orientation.contains("v")){
             if (coords[1]+length>8 ){
                 return false;
@@ -361,13 +367,16 @@ public class BattleBoard {
 
     public int updateBoard(int[] coords){
         int spot = getValue(coords[0], coords[1]);
+        String move = Integer.toString(coords[0]) + Integer.toString(coords[1]);
         System.out.println(spot);
         if (spot == 1){
-            System.out.println("UPDATE BOARD HIT");
+            // System.out.println("UPDATE BOARD HIT");
             setValue(coords[0], coords[1], 2);
+            hits = hits + move + " ";
         }else{
-            System.out.println("UPDATE BOARD MISS");
+            // System.out.println("UPDATE BOARD MISS");
             setValue(coords[0], coords[1], 3);
+            miss = miss + move + " ";
             return 0;
         }
 
@@ -398,6 +407,12 @@ public class BattleBoard {
                 if (allGone){
                     for (int i=0; i<shipGone.size(); i=i+2){
                         setAround(shipGone.get(i), shipGone.get(i+1), 3);
+                        move = Integer.toString(coords[0]) + Integer.toString(coords[1]);
+                        if (hits.contains(move)){
+
+                        }else{
+                            miss = miss + move + " ";
+                        }
                     }
                     for (int i=0; i<shipGone.size(); i=i+2){
                         setValue(shipGone.get(i), shipGone.get(i+1), 2);
