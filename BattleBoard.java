@@ -5,12 +5,13 @@ import java.util.*;
 // miss = 3
 public class BattleBoard {
     private int[][] board;
-    private ArrayList<ArrayList<Integer>> ships = new ArrayList<ArrayList<Integer>>();
+    public ArrayList<ArrayList<Integer>> ships;
     public String hits;
     public String miss;
 
     public BattleBoard(){
         this.board = new int[8][8];
+        this.ships = new ArrayList<ArrayList<Integer>>();
         this.hits = "";
         this.miss = "";
         fillBoard();
@@ -292,7 +293,7 @@ public class BattleBoard {
         return true;
     }
 
-    public boolean setAround(int r, int c, int val){
+    public void setAround(int r, int c, int val){
         if (r==7 || r==0 || c==7 || c==0){
             if (r==7){
                 if (c==7){
@@ -350,7 +351,6 @@ public class BattleBoard {
             setValue(r+1,c,val);
             setValue(r+1,c+1,val);
         }
-        return true;
     }
 
     public void shipPlace(String info, int length, int[] coords){
@@ -410,6 +410,7 @@ public class BattleBoard {
                     System.out.println(i+1);
                     if (getValue(shipGone.get(i),shipGone.get(i+1))!=2){
                         // System.out.println(shipGone);
+                        ships.remove(shipGone);
                         allGone=false;
                         break;
                     }
@@ -434,6 +435,7 @@ public class BattleBoard {
                             }
                         }
                     }
+
                     return 2;
                 }else{
                     return 1;
