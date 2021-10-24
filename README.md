@@ -6,6 +6,8 @@ Socket Battleship was created for DandyHacks 2021 as part of the Video Games Tra
 [Ian Clingerman](https://www.linkedin.com/in/ian-clingerman/), 
 [Sophie Stahl](https://www.linkedin.com/in/sophiestahl/). 
 
+Update: Socket Battleship has recieved 2nd place in the Video Games Track! See the Devpost [here](https://devpost.com/software/socket-battleship). 
+
 ## About the Game
 
 This is a text based battleship game that you can play against you friends remotely! Using TCP sockets, one player is able to host a game and another player is able to connect to them to play. The game runs through the console for both printing the boards and having players select their moves. 
@@ -40,4 +42,3 @@ Choosing a move follows the same format minus the orientation character.
 We have provided a Makefile to compile the Java code. Use 'make' to compile the code and 'make run' to run the Driver program. 
 The compile command is 'javac -d bin *.java' and the run command is 'java -cp bin Driver'
 
-The entirety of this project was designed and written during DandyHacks, a 36-hour hackathon hosted at the University of Rochester, as part of the Games track. 
