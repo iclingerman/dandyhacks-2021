@@ -16,7 +16,7 @@ public class Game {
         }
         System.out.println("Your Board: ");
         board.printBoard();
-        scan.close();
+        // scan.close();
     }
 
     public boolean gameOver(){

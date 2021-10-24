@@ -171,7 +171,7 @@ public class BattleBoard {
             }
             shipPlace(check[1], shipLengths[i], coords);
         }
-        scan.close();
+        // scan.close();
     }
 
     public boolean checkValid(String orientation, int length, int[] coords){

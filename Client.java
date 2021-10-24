@@ -14,7 +14,7 @@ public class Client extends Player{
             updatePlayerDataStreams();
             out.writeUTF(name); //sending name to server
             this.oppName = in.readUTF(); //get name from server
-            System.out.println("You have connect to challenge " + oppName);
+            System.out.println("You have connected to challenge " + oppName);
         }  catch (IOException e) {
             e.printStackTrace();
         }
