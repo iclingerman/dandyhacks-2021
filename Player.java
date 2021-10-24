@@ -3,8 +3,9 @@ import java.net.*;
 import java.io.*;
 
 public class Player {
-    private BattleBoard board;
-    private BattleBoard oppBoard;
+    // private BattleBoard board;
+    // private BattleBoard oppBoard;
+    protected Game game;
     protected String name;
     protected String oppName;
     protected Socket socket; 
@@ -17,9 +18,10 @@ public class Player {
         this.name = name;
         this.oppName = "";
         this.scan = new Scanner(System.in);
-        this.board = new BattleBoard();
+        // this.board = new BattleBoard();
         //TODO add code to set up board
-        this.oppBoard = new BattleBoard();
+        // this.oppBoard = new BattleBoard();
+        this.game = new Game();
         this.socket = null;
         this.in = null;
         this.out = null;
@@ -53,7 +55,7 @@ public class Player {
         try {
             message = in.readUTF();
             System.out.println("Opponent's move: " + message);
-            String response = processMove(message);
+            String response = processOpponentMove(message);
             out.writeUTF(response);
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,6 +67,7 @@ public class Player {
         try {
             // System.out.print("Please enter your move: ");
             move = getMove();
+            processPlayerMove(move);
             out.writeUTF(move);
             String response = in.readUTF();
             System.out.println("Your move was a " + response);
@@ -101,7 +104,7 @@ public class Player {
         if(move.equals("")) {
             return false;
         }
-        int[] check = oppBoard.stringToCoord(move);
+        int[] check = game.oppBoard.stringToCoord(move);
         if (check[0] == -1) {
             return false;
         }
@@ -109,9 +112,26 @@ public class Player {
     }
 
     //return 'hit' or 'miss'
-    public String processMove(String move) {
-        return "hit";
+    public String processOpponentMove(String move) {
+        int[] coords = game.board.stringToCoord(move);
+        int option = game.board.updateBoard(coords);
+        switch(option) {
+            case 0:
+                return "Miss";
+            case 1:
+                return "Hit";
+            case 2:
+                return "Hit:Sink";
+        }
+
+        return "Miss";
         //TODO add hit or miss function in battle board class and updates the two boards
+    }
+
+    public void processPlayerMove(String move) {
+        int[] coords = game.oppBoard.stringToCoord(move);
+        game.oppBoard.updateBoard(coords);
+        //Don't think we need to return anything here
     }
 
 }

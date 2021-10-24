@@ -22,48 +22,13 @@ public class Client extends Player{
         }
 
 
-        String move = "";
         for (int i = 0; i < 5; i++) {
             sendMove();
-            // try {
-            //     // System.out.print("Please enter your move: ");
-            //     move = getMove();
-            //     out.writeUTF(move);
-            //     String response = in.readUTF();
-            //     System.out.println("Your move was a " + response);
-            //     // System.out.println();
-            // } catch (IOException e) {
-            //     e.printStackTrace();
-            // }
+            game.board.printBothBoards(game.oppBoard);
             receiveMove();
+            game.board.printBothBoards(game.oppBoard);
         }
 
-
-        // String move = "";
-        // try {
-        //     // System.out.print("Please enter your move: ");
-        //     move = getMove();
-        //     out.writeUTF(move);
-        //     String response = in.readUTF();
-        //     System.out.println("Your move was a " + response);
-        //     // System.out.println();
-        // } catch (IOException e1) {
-        //     // TODO Auto-generated catch block
-        //     e1.printStackTrace();
-        // }
-        
-        // System.out.println("Waiting for opponents move...");
-        // String message = "";
-        // try {
-        //     message = in.readUTF();
-        //     System.out.println("Opponent's move: " + message);
-        //     String response = processMove(message);
-        //     out.writeUTF(response);
-        // } catch (IOException e) {
-        //     // TODO Auto-generated catch block
-        //     e.printStackTrace();
-        // }
-        
         closeConnection();
 
     }

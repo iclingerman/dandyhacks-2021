@@ -115,10 +115,10 @@ public class BattleBoard {
                         System.out.print("s ");
                         break;
                     case 2:
-                        System.out.print("o ");
+                        System.out.print("x ");
                         break;
                     case 3:
-                        System.out.print("x ");
+                        System.out.print("o ");
                         break;
                 }
             }
@@ -133,10 +133,10 @@ public class BattleBoard {
                         System.out.print("s ");
                         break;
                     case 2:
-                        System.out.print("o ");
+                        System.out.print("x ");
                         break;
                     case 3:
-                        System.out.print("x ");
+                        System.out.print("o ");
                         break;
                 }
             }
