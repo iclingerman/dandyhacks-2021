@@ -63,31 +63,31 @@ public class BattleBoard {
     //TODO if num first check
     public int[] stringToCoord(String coord){
         int[] returnCoord = new int[]{-1, -1};
-        returnCoord[0] = Integer.parseInt(coord.substring(1)) - 1;
+        returnCoord[1] = Integer.parseInt(coord.substring(1)) - 1;
         switch (coord.charAt(0)) {
             case 'a':
-                returnCoord[1] = 0;
+                returnCoord[0] = 0;
                 break;
             case 'b':
-                returnCoord[1] = 1;
+                returnCoord[0] = 1;
                 break;
             case 'c':
-                returnCoord[1] = 2;
+                returnCoord[0] = 2;
                 break;
             case 'd':
-                returnCoord[1] = 3;
+                returnCoord[0] = 3;
                 break;
             case 'e':
-                returnCoord[1] = 4;
+                returnCoord[0] = 4;
                 break;
             case 'f':
-                returnCoord[1] = 5;
+                returnCoord[0] = 5;
                 break;
             case 'g':
-                returnCoord[1] = 6;
+                returnCoord[0] = 6;
                 break;
             case 'h':
-                returnCoord[1] = 7;
+                returnCoord[0] = 7;
                 break;
             default:
                 System.out.println("Error");
@@ -175,30 +175,36 @@ public class BattleBoard {
         if (coords[0] == -1 || coords[1] == -1){
             return false;
         }
-        System.out.println("row = " + coords[0]);
-        System.out.println("column = " + coords[1]);
+        // System.out.println("row = " + coords[0]);
+        // System.out.println("column = " + coords[1]);
         if (orientation.contains("v")){
             if (coords[1]+length>8 ){
+                // System.out.println("1");
                 return false;
             }
             for (int i = coords[1]; i<(length + coords[1]); i++){
                 if (getValue(i,coords[0]) == 1){
+                    // System.out.println("2");
                     return false;
                 }else{
                     if (!checkAround(i, coords[0], 1)){
+                        // System.out.println("3");
                         return false;
                     }
                 }
             }
         }else{
             if (coords[0]+length>8){
+                // System.out.println("4");
                 return false;
             }
             for (int i = coords[0]; i<(length + coords[0]); i++){
                 if (getValue(coords[1],i) == 1){
+                    // System.out.println("5");
                     return false;
                 }else{
                     if (!checkAround(coords[1], i, 1)){
+                        // System.out.println("6");
                         return false;
                     }
                  }
@@ -368,7 +374,7 @@ public class BattleBoard {
     public int updateBoard(int[] coords){
         int spot = getValue(coords[0], coords[1]);
         String move = Integer.toString(coords[0]) + Integer.toString(coords[1]);
-        System.out.println(spot);
+        // System.out.println(spot);
         if (spot == 1){
             // System.out.println("UPDATE BOARD HIT");
             setValue(coords[0], coords[1], 2);
@@ -376,7 +382,11 @@ public class BattleBoard {
         }else{
             // System.out.println("UPDATE BOARD MISS");
             setValue(coords[0], coords[1], 3);
-            miss = miss + move + " ";
+            if (miss.contains(move)){
+
+            }else{
+                miss = miss + move + " ";
+            }
             return 0;
         }
 
@@ -399,7 +409,7 @@ public class BattleBoard {
                     System.out.println(i);
                     System.out.println(i+1);
                     if (getValue(shipGone.get(i),shipGone.get(i+1))!=2){
-                        System.out.println(shipGone);
+                        // System.out.println(shipGone);
                         allGone=false;
                         break;
                     }
@@ -407,15 +417,22 @@ public class BattleBoard {
                 if (allGone){
                     for (int i=0; i<shipGone.size(); i=i+2){
                         setAround(shipGone.get(i), shipGone.get(i+1), 3);
-                        move = Integer.toString(coords[0]) + Integer.toString(coords[1]);
-                        if (hits.contains(move)){
-
-                        }else{
-                            miss = miss + move + " ";
-                        }
                     }
                     for (int i=0; i<shipGone.size(); i=i+2){
                         setValue(shipGone.get(i), shipGone.get(i+1), 2);
+                    }
+                    for (int i=0; i<8; i++){
+                        for (int j=0; j<8; j++){
+                            move = Integer.toString(i) + Integer.toString(j);
+                            if (getValue(i, j)==3){
+                                // System.out.println(move);
+                                if (miss.contains(move)){
+
+                                }else{
+                                    miss = miss + move + " ";
+                                }
+                            }
+                        }
                     }
                     return 2;
                 }else{

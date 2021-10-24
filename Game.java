@@ -24,8 +24,8 @@ public class Game {
         Scanner scan = new Scanner(System.in);
         BattleBoard board = new BattleBoard();
         BattleBoard board2 = new BattleBoard();
-        board.shipAdd();
-        // board.shipRandom();
+        // board.shipAdd();
+        board.shipRandom();
         // board2.shipRandom();
         board.printBoard();
         System.out.println();
@@ -38,6 +38,7 @@ public class Game {
         board.updateBoard(a3);
         System.out.println("miss " + board.miss);
         System.out.println("hits " + board.hits);
+        board.printBoard();
     }
 
 
