@@ -63,7 +63,6 @@ public class BattleBoard {
         board[row][column] = value;
     }
 
-    //TODO if num first check
     public int[] stringToCoord(String coord){
         int[] returnCoord = new int[]{-1, -1};
         returnCoord[1] = Integer.parseInt(coord.substring(1)) - 1;
@@ -172,42 +171,35 @@ public class BattleBoard {
             }
             shipPlace(check[1], shipLengths[i], coords);
         }
+        scan.close();
     }
 
     public boolean checkValid(String orientation, int length, int[] coords){
         if (coords[0] == -1 || coords[1] == -1){
             return false;
         }
-        // System.out.println("row = " + coords[0]);
-        // System.out.println("column = " + coords[1]);
         if (orientation.contains("v")){
             if (coords[1]+length>8 ){
-                // System.out.println("1");
                 return false;
             }
             for (int i = coords[1]; i<(length + coords[1]); i++){
                 if (getValue(i,coords[0]) == 1){
-                    // System.out.println("2");
                     return false;
                 }else{
                     if (!checkAround(i, coords[0], 1)){
-                        // System.out.println("3");
                         return false;
                     }
                 }
             }
         }else{
             if (coords[0]+length>8){
-                // System.out.println("4");
                 return false;
             }
             for (int i = coords[0]; i<(length + coords[0]); i++){
                 if (getValue(coords[1],i) == 1){
-                    // System.out.println("5");
                     return false;
                 }else{
                     if (!checkAround(coords[1], i, 1)){
-                        // System.out.println("6");
                         return false;
                     }
                  }
@@ -376,13 +368,10 @@ public class BattleBoard {
     public int updateBoard(int[] coords){
         int spot = getValue(coords[0], coords[1]);
         String move = Integer.toString(coords[0]) + Integer.toString(coords[1]);
-        // System.out.println(spot);
         if (spot == 1){
-            // System.out.println("UPDATE BOARD HIT");
             setValue(coords[0], coords[1], 2);
             hits = hits + move + " ";
         }else{
-            // System.out.println("UPDATE BOARD MISS");
             setValue(coords[0], coords[1], 3);
             if (miss.contains(move)){
 
@@ -392,66 +381,55 @@ public class BattleBoard {
             return 0;
         }
 
-        // if (getValue(coords[0], coords[1])==2){
-            if (checkAround(coords[0], coords[1], 1)){
-                ArrayList<Integer> shipGone = new ArrayList<Integer>();
-                for(ArrayList<Integer> curr : ships){
-                    for (int i = 0; i < curr.size(); i=i+2){
-                        if (curr.get(i)==coords[0] && curr.get(i+1)==coords[1]){
-                            shipGone = curr;
-                            break;
-                        }
-                    }
-                    if (!shipGone.isEmpty()){
+        if (checkAround(coords[0], coords[1], 1)){
+            ArrayList<Integer> shipGone = new ArrayList<Integer>();
+            for(ArrayList<Integer> curr : ships){
+                for (int i = 0; i < curr.size(); i=i+2){
+                    if (curr.get(i)==coords[0] && curr.get(i+1)==coords[1]){
+                        shipGone = curr;
                         break;
                     }
                 }
-                boolean allGone = true;
+                if (!shipGone.isEmpty()){
+                    break;
+                }
+            }
+            boolean allGone = true;
+            for (int i=0; i<shipGone.size(); i=i+2){
+                System.out.println(i);
+                System.out.println(i+1);
+                if (getValue(shipGone.get(i),shipGone.get(i+1))!=2){
+                    allGone=false;
+                    break;
+                }
+            }
+            if (allGone){
+                remainingShips--;
                 for (int i=0; i<shipGone.size(); i=i+2){
-                    System.out.println(i);
-                    System.out.println(i+1);
-                    if (getValue(shipGone.get(i),shipGone.get(i+1))!=2){
-                        // System.out.println(shipGone);
-                        allGone=false;
-                        break;
-                    }
+                    setAround(shipGone.get(i), shipGone.get(i+1), 3);
                 }
-                if (allGone){
-                    remainingShips--;
-                    for (int i=0; i<shipGone.size(); i=i+2){
-                        setAround(shipGone.get(i), shipGone.get(i+1), 3);
-                    }
-                    for (int i=0; i<shipGone.size(); i=i+2){
-                        setValue(shipGone.get(i), shipGone.get(i+1), 2);
-                    }
-                    for (int i=0; i<8; i++){
-                        for (int j=0; j<8; j++){
-                            move = Integer.toString(i) + Integer.toString(j);
-                            if (getValue(i, j)==3){
-                                // System.out.println(move);
-                                if (miss.contains(move)){
+                for (int i=0; i<shipGone.size(); i=i+2){
+                    setValue(shipGone.get(i), shipGone.get(i+1), 2);
+                }
+                for (int i=0; i<8; i++){
+                    for (int j=0; j<8; j++){
+                        move = Integer.toString(i) + Integer.toString(j);
+                        if (getValue(i, j)==3){
+                            if (miss.contains(move)){
 
-                                }else{
-                                    miss = miss + move + " ";
-                                }
+                            }else{
+                                miss = miss + move + " ";
                             }
                         }
                     }
-
-                    return 2;
-                }else{
-                    return 1;
                 }
+
+                return 2;
             }else{
                 return 1;
             }
-        // }
+        }else{
+            return 1;
+        }
     }
-
-
-    // public static void main(String args[]){
-    //     BattleBoard test = new BattleBoard();
-    //     BattleBoard opp = new BattleBoard();
-    //     test.printBothBoards(opp);
-    // }
 }

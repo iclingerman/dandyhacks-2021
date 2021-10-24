@@ -11,7 +11,6 @@ public class Client extends Player{
         this.port = port;
         try {
             this.socket = new Socket(this.ip, this.port);
-            // updatePlayerSocket(s);
             updatePlayerDataStreams();
             out.writeUTF(name); //sending name to server
             this.oppName = in.readUTF(); //get name from server

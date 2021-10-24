@@ -9,7 +9,7 @@ public class Server extends Player{
         super(name, false);
         try {
             this.ip = InetAddress.getLocalHost();
-            this.server = new ServerSocket(5050, 1, ip); //TODO change back to random port
+            this.server = new ServerSocket(0, 1, ip);
             System.out.printf("You have created a server at %s on port %d\n", ip.getHostAddress(), server.getLocalPort());
             System.out.println("Waiting for connection...");
         

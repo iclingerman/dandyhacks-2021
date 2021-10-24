@@ -132,7 +132,6 @@ public class Player {
         return true;
     }
 
-    //return 'hit' or 'miss'
     public String[] processOpponentMove(String move) {
         String[] rval = new String[4];
         int[] coords = game.board.stringToCoord(move);
@@ -165,7 +164,6 @@ public class Player {
 
     public void processPlayerMove(String move, String response, String hits, String miss) {
         int[] coords = game.oppBoard.stringToCoord(move);
-        // game.oppBoard.updateBoard(coords);
         if (response.equals("Miss")) {
             game.oppBoard.setValue(coords[1], coords[0], 3);
         } else if (response.equals("Hit")) {
@@ -185,8 +183,6 @@ public class Player {
             }
             
         }
-
-        //Don't think we need to return anything here
     }
 
 }
