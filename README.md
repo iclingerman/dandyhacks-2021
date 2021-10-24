@@ -12,6 +12,27 @@ This is a text based battleship game that you can play against you friends remot
 
 Both the game and socket programmming code are written in Java. 
 
+## Symbols Dictionary
+
+On our board, the game is represented by symbols:
+~ = water
+s = ship
+o = miss
+x = hit
+
+## How to Input Your Own Ships
+When it comes to placing the ships as you wish, here is how to input:
+
+letternumber orientation
+
+For example: a1 v
+or
+For example: h5 h
+
+The head of the ship is the topmost point when the ship is vertical and the leftmost point when the ship is horizontal.
+
+The code assumes that you inputed in the correct format, but does check for bounding errors.
+
 ## Usage
 
 We have provided a Makefile to compile the Java code. Use 'make' to compile the code and 'make run' to run the Driver program. 
