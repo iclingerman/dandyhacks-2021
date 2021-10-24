@@ -56,6 +56,7 @@ public class BattleBoard {
         board[row][column] = value;
     }
 
+    //TODO if num first check
     public int[] stringToCoord(String coord){
         int[] returnCoord = new int[]{-1, -1};
         returnCoord[1] = Integer.parseInt(coord.substring(1)) - 1;
@@ -358,24 +359,22 @@ public class BattleBoard {
         ships.add(current);
     }
 
-    public void updateBoard(int[] coords){
+    public int updateBoard(int[] coords){
         int spot = getValue(coords[0], coords[1]);
         System.out.println(spot);
         if (spot == 1){
             setValue(coords[0], coords[1], 2);
         }else{
             setValue(coords[0], coords[1], 3);
+            return 0;
         }
 
-        if (getValue(coords[0], coords[1])==2){
-            System.out.println("this works");
+        // if (getValue(coords[0], coords[1])==2){
             if (checkAround(coords[0], coords[1], 1)){
-                System.out.println("we got here");
                 ArrayList<Integer> shipGone = new ArrayList<Integer>();
                 for(ArrayList<Integer> curr : ships){
                     for (int i = 0; i < curr.size(); i=i+2){
                         if (curr.get(i)==coords[0] && curr.get(i+1)==coords[1]){
-                            System.out.println("found ship");
                             shipGone = curr;
                             break;
                         }
@@ -389,23 +388,26 @@ public class BattleBoard {
                     System.out.println(i);
                     System.out.println(i+1);
                     if (getValue(shipGone.get(i),shipGone.get(i+1))!=2){
-                        System.out.println("still there!");
                         System.out.println(shipGone);
                         allGone=false;
                         break;
                     }
                 }
                 if (allGone){
-                    System.out.println("all gone");
                     for (int i=0; i<shipGone.size(); i=i+2){
                         setAround(shipGone.get(i), shipGone.get(i+1), 3);
                     }
                     for (int i=0; i<shipGone.size(); i=i+2){
                         setValue(shipGone.get(i), shipGone.get(i+1), 2);
                     }
+                    return 2;
+                }else{
+                    return 1;
                 }
+            }else{
+                return 1;
             }
-        }
+        // }
     }
 
 
