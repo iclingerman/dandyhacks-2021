@@ -7,7 +7,6 @@ public class Client extends Player{
 
     public Client(String ip, int port, String name) {
         super(name);
-        // Socket s;
         this.ip = ip; 
         this.port = port;
         try {
@@ -31,9 +30,5 @@ public class Client extends Player{
 
         closeConnection();
 
-    }
-
-    public static void main(String[] args) {
-        Client c = new Client("172.28.176.1", 5050, "Sophie");
     }
 }

@@ -20,7 +20,6 @@ public class Server extends Player{
             out.writeUTF(name);
             
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -39,10 +38,5 @@ public class Server extends Player{
         }
         closeConnection();
         
-    }
-
-
-    public static void main(String[] args) {
-        Server s = new Server("Ian");
     }
 }
