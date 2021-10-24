@@ -28,6 +28,17 @@ public class Server extends Player{
         for (int i = 0; i < 5; i++) {
             receiveMove();
             sendMove();
+            // String move = "";
+            // try {
+            //     // System.out.print("Please enter your move: ");
+            //     move = getMove();
+            //     out.writeUTF(move);
+            //     String response = in.readUTF();
+            //     System.out.println("Your move was a " + response);
+            //     // System.out.println();
+            // } catch (IOException e) {
+            //     e.printStackTrace();
+            // }
         }
 
         // System.out.println("Waiting for opponents move...");

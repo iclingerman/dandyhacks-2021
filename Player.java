@@ -11,15 +11,19 @@ public class Player {
     protected DataInputStream in; 
     protected DataOutputStream out;
 
+    private Scanner scan;
+
     public Player(String name) {
         this.name = name;
         this.oppName = "";
+        this.scan = new Scanner(System.in);
         this.board = new BattleBoard();
         //TODO add code to set up board
         this.oppBoard = new BattleBoard();
         this.socket = null;
         this.in = null;
         this.out = null;
+        
     }
 
     public void updatePlayerDataStreams() {
@@ -36,6 +40,7 @@ public class Player {
             this.socket.close();
             this.in.close();
             this.out.close();
+            this.scan.close();
         } catch (IOException e) {
             e.printStackTrace();
         }  
@@ -72,22 +77,22 @@ public class Player {
 
     public String getMove() {
         String move = "";
-        Scanner scan = new Scanner(System.in);
+        // Scanner scan = new Scanner(System.in);
         // scan.nextLine();
-        // do {
-        //     System.out.println();
-        //     if(!move.equals("")) {
-        //         System.out.println("Invalid Move");
-        //     }
-        //     System.out.print("Please enter your move: ");
-        //     // move = scan.nextLine();
-            if (scan.hasNext()) {
-                move = scan.next();
+        do {
+            System.out.println();
+            if(!move.equals("")) {
+                System.out.println("Invalid Move");
             }
-        //     System.out.println();  
-        //     // scan.nextLine();
-        // } while (!validMove(move));
-        scan.close();
+            System.out.print("Please enter your move: ");
+            move = scan.nextLine();
+            // if (scan.hasNext()) {
+            //     move = scan.next();
+            // }
+            System.out.println();  
+            // scan.nextLine();
+        } while (!validMove(move));
+        // scan.close();
         
         return move;
     }
