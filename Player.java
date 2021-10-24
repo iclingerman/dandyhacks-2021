@@ -67,10 +67,11 @@ public class Player {
         try {
             // System.out.print("Please enter your move: ");
             move = getMove();
-            processPlayerMove(move);
+            
             out.writeUTF(move);
             String response = in.readUTF();
             System.out.println("Your move was a " + response);
+            processPlayerMove(move, response);
             // System.out.println();
         } catch (IOException e) {
             e.printStackTrace();
@@ -128,9 +129,17 @@ public class Player {
         //TODO add hit or miss function in battle board class and updates the two boards
     }
 
-    public void processPlayerMove(String move) {
+    public void processPlayerMove(String move, String response) {
         int[] coords = game.oppBoard.stringToCoord(move);
-        game.oppBoard.updateBoard(coords);
+        // game.oppBoard.updateBoard(coords);
+        if (response.equals("Miss")) {
+            game.oppBoard.setValue(coords[0], coords[1], 3);
+        } else if (response.equals("Hit")) {
+            game.oppBoard.setValue(coords[0], coords[1], 2);
+        } else if (response.equals("Hit:Sink")) {
+            
+        }
+
         //Don't think we need to return anything here
     }
 

@@ -59,31 +59,31 @@ public class BattleBoard {
     //TODO if num first check
     public int[] stringToCoord(String coord){
         int[] returnCoord = new int[]{-1, -1};
-        returnCoord[1] = Integer.parseInt(coord.substring(1)) - 1;
+        returnCoord[0] = Integer.parseInt(coord.substring(1)) - 1;
         switch (coord.charAt(0)) {
             case 'a':
-                returnCoord[0] = 0;
+                returnCoord[1] = 0;
                 break;
             case 'b':
-                returnCoord[0] = 1;
+                returnCoord[1] = 1;
                 break;
             case 'c':
-                returnCoord[0] = 2;
+                returnCoord[1] = 2;
                 break;
             case 'd':
-                returnCoord[0] = 3;
+                returnCoord[1] = 3;
                 break;
             case 'e':
-                returnCoord[0] = 4;
+                returnCoord[1] = 4;
                 break;
             case 'f':
-                returnCoord[0] = 5;
+                returnCoord[1] = 5;
                 break;
             case 'g':
-                returnCoord[0] = 6;
+                returnCoord[1] = 6;
                 break;
             case 'h':
-                returnCoord[0] = 7;
+                returnCoord[1] = 7;
                 break;
             default:
                 System.out.println("Error");
@@ -363,8 +363,10 @@ public class BattleBoard {
         int spot = getValue(coords[0], coords[1]);
         System.out.println(spot);
         if (spot == 1){
+            System.out.println("UPDATE BOARD HIT");
             setValue(coords[0], coords[1], 2);
         }else{
+            System.out.println("UPDATE BOARD MISS");
             setValue(coords[0], coords[1], 3);
             return 0;
         }
