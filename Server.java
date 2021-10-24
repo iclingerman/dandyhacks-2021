@@ -6,7 +6,7 @@ public class Server extends Player{
     private ServerSocket server; 
 
     public Server(String name) {
-        super(name);
+        super(name, false);
         try {
             this.ip = InetAddress.getLocalHost();
             this.server = new ServerSocket(5050, 1, ip); //TODO change back to random port
@@ -25,10 +25,13 @@ public class Server extends Player{
 
         
         for (int i = 0; i < 5; i++) {
-            receiveMove();
-            game.board.printBothBoards(game.oppBoard);
-            sendMove();
-            game.board.printBothBoards(game.oppBoard);
+            if(myTurn) {
+                sendMove();
+                game.board.printBothBoards(game.oppBoard);
+            }else {
+                receiveMove();
+                game.board.printBothBoards(game.oppBoard);
+            }
         }
 
         try {

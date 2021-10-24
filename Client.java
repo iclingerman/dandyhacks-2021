@@ -6,7 +6,7 @@ public class Client extends Player{
     private int port;  
 
     public Client(String ip, int port, String name) {
-        super(name);
+        super(name, true);
         this.ip = ip; 
         this.port = port;
         try {
@@ -22,10 +22,13 @@ public class Client extends Player{
 
 
         for (int i = 0; i < 5; i++) {
-            sendMove();
-            game.board.printBothBoards(game.oppBoard);
-            receiveMove();
-            game.board.printBothBoards(game.oppBoard);
+            if(myTurn) {
+                sendMove();
+                game.board.printBothBoards(game.oppBoard);
+            }else {
+                receiveMove();
+                game.board.printBothBoards(game.oppBoard);
+            }
         }
 
         closeConnection();
