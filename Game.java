@@ -1,9 +1,18 @@
 import java.util.Scanner;
 import java.util.*;
 public class Game {
+    public BattleBoard board;
+    public BattleBoard oppBoard;
 
     public Game(){
-
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Would you like to randomize your board? (y/n)");
+        String answer = scan.nextLine();
+        if (answer.equals("y")){
+            board.shipAdd();
+        }else{
+            board.shipRandom();
+        }
     }
 
     public void shipSetUp(){
