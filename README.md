@@ -33,6 +33,8 @@ The head of the ship is the topmost point when the ship is vertical and the left
 
 The code assumes that you inputed in the correct format, but does check for bounding errors.
 
+Choosing a move follows the same format minus the orientation character. 
+
 ## Usage
 
 We have provided a Makefile to compile the Java code. Use 'make' to compile the code and 'make run' to run the Driver program. 
